@@ -1,6 +1,6 @@
 {
-  "name": "petpals",
-  "version": "0.0.0",
+  "name": "ExtendedFamily",
+  "version": "0.0.1",
   "description": "A website that allows others to see all of our pets",
   "main": "build.js",
   "scripts": {
