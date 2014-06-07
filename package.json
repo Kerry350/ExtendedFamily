@@ -1,0 +1,24 @@
+{
+  "name": "petpals",
+  "version": "0.0.0",
+  "description": "A website that allows others to see all of our pets",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pets",
+    "animals"
+  ],
+  "author": "Kerry Gallagher",
+  "dependencies": {
+    "metalsmith": "^0.8.0",
+    "metalsmith-assets": "0.0.1",
+    "metalsmith-collections": "^0.4.1",
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-paginate": "^0.2.1",
+    "metalsmith-templates": "^0.5.0",
+    "handlebars": "^2.0.0",
+    "colors": "^0.6.2"
+  }
+}

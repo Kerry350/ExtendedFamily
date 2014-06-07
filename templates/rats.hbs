@@ -1,0 +1,16 @@
+<ul>
+  {{#each collections.rats}}
+    <li>
+      <h3>{{this.name}}</h3>
+      {{{this.contents}}}
+    </li>
+  {{/each}}
+
+  <ul>
+    {{#each images.rats}}
+      <li>
+        <img src="{{this}}" />
+      </li>
+    {{/each}}
+  </ul>
+</ul>
