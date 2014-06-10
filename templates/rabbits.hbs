@@ -1,17 +1,22 @@
-<ul>
+{{> header}}
+
+<ul class="list-group">
   {{#each collections.rabbits}}
-    <li>
+    <li class="list-group-item">
       <h3>
         <a href="{{this.href}}">{{this.name}}</a>        
       </h3>
     </li>
   {{/each}}
-
-  <ul>
-    {{#each images.rabbits}}
-      <li>
-        <img src="{{this}}" />
-      </li>
-    {{/each}}
-  </ul>
 </ul>
+
+<ul>
+  {{#each images.rabbits}}
+    <li>
+      <img src="{{this}}" />
+    </li>
+  {{/each}}
+</ul>
+
+
+{{> footer}}

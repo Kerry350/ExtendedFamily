@@ -7,27 +7,17 @@ var templates = require('metalsmith-templates');
 var paginate = require('metalsmith-paginate'); // Not used yet
 var colors = require('colors');
 var AWS = require('aws-sdk');
+var fs = require('fs');
 
 Handlebars.registerHelper('generateGallery', function(name, images, options) {
   var images = images[name.toLowerCase()];
   return options.fn(images);
 });
 
+Handlebars.registerPartial('header', fs.readFileSync(__dirname + '/templates/partials/header.hbs').toString());
+Handlebars.registerPartial('footer', fs.readFileSync(__dirname + '/templates/partials/footer.hbs').toString());
+
 console.log(">>> Generating site".green)
-
-var ENV = process.argv[2];
-
-console.log(">>> The ".green + ENV.green + ' environment has been selected'.green);
-
-var environments = {
-  dev: {
-    prefix: __dirname + '/dist/' 
-  },
-
-  production: {
-    prefix: '<SITE_URL>' + '/'
-  }
-};
 
 // HAS BEEN REPLACED BY THE S3 VERSION
 // Given a folder structure of rabbits/images
@@ -74,42 +64,42 @@ function imageGalleries(files, metalsmith, done) {
 function fetchS3Galleries(files, metalsmith, done) {
   var metadata = metalsmith.metadata();
   metadata.images = {};
-  var s3 = new AWS.S3();
+  // var s3 = new AWS.S3();
 
-  var params = {
-    Bucket: 'thefurrybrotherhood'
-  };
+  // var params = {
+  //   Bucket: 'thefurrybrotherhood'
+  // };
 
-  s3.listObjects(params, function(err, data) {
-    if (err) {
-      console.log(err, err.stack);
-    } else {
-      var BASE_URL = 'https://s3-eu-west-1.amazonaws.com/thefurrybrotherhood/';
+  // s3.listObjects(params, function(err, data) {
+  //   if (err) {
+  //     console.log(err, err.stack);
+  //   } else {
+  //     var BASE_URL = 'https://s3-eu-west-1.amazonaws.com/thefurrybrotherhood/';
 
-      // https://s3-eu-west-1.amazonaws.com/thefurrybrotherhood/jake%3Asomething
-      data.Contents.forEach(function(item) {
-        var fileParts = item.Key.split(':');
-        var gallery = fileParts[0];
+  //     // https://s3-eu-west-1.amazonaws.com/thefurrybrotherhood/jake%3Asomething
+  //     data.Contents.forEach(function(item) {
+  //       var fileParts = item.Key.split(':');
+  //       var gallery = fileParts[0];
 
-        if (!metadata.images[gallery]) {
-          metadata.images[gallery] = [];
-        }
+  //       if (!metadata.images[gallery]) {
+  //         metadata.images[gallery] = [];
+  //       }
 
-        metadata.images[gallery].push(BASE_URL + encodeURI(item.Key));
-      });
+  //       metadata.images[gallery].push(BASE_URL + encodeURI(item.Key));
+  //     });
 
-      console.log(">>> Metadata.images", metadata.images);
-    }
+  //     console.log(">>> Metadata.images", metadata.images);
+  //   }
 
     done();
-  });
+  // });
 }
 
 // Not sure if this is really required, or even 'right', but it works...
 function hrefs(files, metalsmith, done) {
   var keys = Object.keys(files);
   keys.forEach(function(key) {
-    files[key].href = environments[ENV].prefix + key;
+    files[key].href = '/' + key;
   });
   done();
 }
