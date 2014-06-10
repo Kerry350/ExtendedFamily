@@ -1,0 +1,20 @@
+{
+  "name": "ExtendedFamily",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Kerry350/ExtendedFamily",
+  "authors": [
+    "Kerry Gallagher <k.gallagher.05@gmail.com>"
+  ],
+  "main": "build.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "3.1.1"
+  }
+}

@@ -120,7 +120,7 @@ Metalsmith(__dirname)
   .use(markdown())
   .use(fetchS3Galleries)
   .use(assets({
-    source: './assets', // relative to the working directory
+    source: './assets/dist', // relative to the working directory
     destination: './assets' // relative to the build directory
   }))
   .use(collections({
