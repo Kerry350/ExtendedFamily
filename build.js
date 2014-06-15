@@ -84,7 +84,7 @@ function fetchS3Galleries(files, metalsmith, done) {
 
       // https://s3-eu-west-1.amazonaws.com/thefurrybrotherhood/jake%3Asomething
       data.Contents.forEach(function(item) {
-        console.log(item.Key)
+
         var fileParts = item.Key.split('~');
         var gallery = fileParts[0];
 
