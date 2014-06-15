@@ -11,7 +11,13 @@ var fs = require('fs');
 
 Handlebars.registerHelper('generateGallery', function(name, images, options) {
   var images = images[name.toLowerCase()];
-  return options.fn(images);
+  var string = '';
+  if (images) {
+    images.forEach(function(image) {
+      string += "<div class='image'><a href='" + image.regular + "'><div class='img-holder' style=\"background-image: url('" + image.small + "')\"></div></a></div> "
+    });
+  }  
+  return new Handlebars.SafeString(string);
 });
 
 Handlebars.registerPartial('header', fs.readFileSync(__dirname + '/templates/partials/header.hbs').toString());
@@ -64,35 +70,43 @@ function imageGalleries(files, metalsmith, done) {
 function fetchS3Galleries(files, metalsmith, done) {
   var metadata = metalsmith.metadata();
   metadata.images = {};
-  // var s3 = new AWS.S3();
+  var s3 = new AWS.S3();
 
-  // var params = {
-  //   Bucket: 'thefurrybrotherhood'
-  // };
+  var params = {
+    Bucket: 'thefurrybrotherhood'
+  };
 
-  // s3.listObjects(params, function(err, data) {
-  //   if (err) {
-  //     console.log(err, err.stack);
-  //   } else {
-  //     var BASE_URL = 'https://s3-eu-west-1.amazonaws.com/thefurrybrotherhood/';
+  s3.listObjects(params, function(err, data) {
+    if (err) {
+      console.log(err, err.stack);
+    } else {
+      var BASE_URL = 'https://s3-eu-west-1.amazonaws.com/thefurrybrotherhood/';
 
-  //     // https://s3-eu-west-1.amazonaws.com/thefurrybrotherhood/jake%3Asomething
-  //     data.Contents.forEach(function(item) {
-  //       var fileParts = item.Key.split(':');
-  //       var gallery = fileParts[0];
+      // https://s3-eu-west-1.amazonaws.com/thefurrybrotherhood/jake%3Asomething
+      data.Contents.forEach(function(item) {
+        console.log(item.Key)
+        var fileParts = item.Key.split('~');
+        var gallery = fileParts[0];
 
-  //       if (!metadata.images[gallery]) {
-  //         metadata.images[gallery] = [];
-  //       }
+        if (!metadata.images[gallery]) {
+          metadata.images[gallery] = [];
+        }
 
-  //       metadata.images[gallery].push(BASE_URL + encodeURI(item.Key));
-  //     });
+        if (item.Key.indexOf('@') === -1) {
+          var srcParts = item.Key.split('.')
+          var small = srcParts[0] + '@1x.' + srcParts[1];
+          metadata.images[gallery].push({
+            regular: BASE_URL + encodeURI(item.Key),
+            small: BASE_URL + encodeURI(small) 
+          });
+        }
+      });
 
-  //     console.log(">>> Metadata.images", metadata.images);
-  //   }
+      // console.log(">>> Metadata.images", metadata.images);
+    }
 
     done();
-  // });
+  });
 }
 
 // Not sure if this is really required, or even 'right', but it works...

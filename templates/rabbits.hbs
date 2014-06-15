@@ -1,5 +1,9 @@
 {{> header}}
 
+<div class="page-header">
+  <h1>Rabbits</h1>
+</div>
+
 <ul class="list-group">
   {{#each collections.rabbits}}
     <li class="list-group-item">
@@ -10,10 +14,17 @@
   {{/each}}
 </ul>
 
-<ul>
+<div class="page-header">
+  <h2>Gallery</h2>
+</div>
+
+<ul class="gallery gallery-full">
   {{#each images.rabbits}}
-    <li>
-      <img src="{{this}}" />
+    <li class="image">
+      <a href="{{this.regular}}">
+        <div class="img-holder" style="background-image: url('{{this.small}}')">
+        </div>
+      </a>
     </li>
   {{/each}}
 </ul>

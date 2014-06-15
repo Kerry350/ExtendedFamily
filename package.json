@@ -26,7 +26,13 @@
     "gulp": "^3.8.0",
     "gulp-concat": "^2.2.0",
     "gulp-connect": "^2.0.5",
+    "gulp-image-resize": "^0.5.0",
+    "gulp-imagemin": "^0.6.1",
+    "gulp-rename": "^1.2.0",
     "gulp-sass": "^0.7.2",
-    "gulp-uglify": "^0.3.0"
+    "gulp-uglify": "^0.3.0",
+    "gulp-util": "^2.2.17",
+    "imagemin-jpegtran": "^0.1.0",
+    "rsyncwrapper": "^0.4.0"
   }
 }

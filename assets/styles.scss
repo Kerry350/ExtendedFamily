@@ -6,3 +6,52 @@ body {
 .container-fluid {
 	max-width: 1200px;
 }
+
+
+ul.gallery {
+	list-style: none;
+}
+
+.gallery {
+
+	&.gallery-full {
+		margin: 0 -10px 0 -50px;
+
+		@media(min-width: 990px) {
+			margin: 0 -10px 0 -50px;
+		}
+	}
+
+	.image {
+		width: auto;
+		box-sizing: border-box;
+		float: none;
+		padding: 0 10px;
+		
+		@media(min-width: 750px) {
+			width: 50%;
+			float: left;	
+		}	
+
+		@media(min-width: 990px) {
+			width: 33.3333%;	
+			float: left;
+		}	
+	}
+	
+	.img-holder {
+		height: 400px;
+		margin-bottom: 20px;
+
+		@media(min-width: 750px) {
+			height: 250px;
+		}	
+		
+		@media(min-width: 990px) {
+			height: 250px;	
+		}	
+		width: 100%;
+		background-position: 50% 25%;
+		background-size: cover;
+	}
+}
