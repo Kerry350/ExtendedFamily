@@ -10,6 +10,20 @@ var rename = require("gulp-rename");
 var rsync = require('rsyncwrapper').rsync;
 var gutil = require('gulp-util');
 
+gulp.task('deploy', function() {
+  rsync({
+    ssh: true,
+    src: './dist/',
+    recursive: true,
+    syncDest: true,
+    args: ['--verbose']
+  }, function(error, stdout, stderr, cmd) {
+      console.log(error.message)
+      console.log(stdout)
+      gutil.log(stdout);
+  });
+});
+
 gulp.task('sass', function() {
   return gulp.src('assets/*.scss')
         .pipe(sass())
